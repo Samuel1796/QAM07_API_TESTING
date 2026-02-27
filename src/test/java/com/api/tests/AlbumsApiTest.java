@@ -8,6 +8,18 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class for Albums API endpoints.
+ * <p>
+ * This class contains comprehensive tests for all CRUD operations on the /albums
+ * resource of the JSONPlaceholder API. Albums are collections of photos associated
+ * with users.
+ * </p>
+ *
+ * @author API Test Automation Team
+ * @version 2.0
+ * @since 1.0
+ */
 @DisplayName("Albums API Tests")
 public class AlbumsApiTest extends BaseTest {
     

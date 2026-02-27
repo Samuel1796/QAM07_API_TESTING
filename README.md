@@ -25,8 +25,8 @@ The framework follows a modular architecture with clear separation of concerns:
 
 ## Prerequisites
 
-- Java 11 or higher
-- Maven 3.6 or higher
+- Java 17 or higher
+- Maven 3.9 or higher
 - Docker (optional, for containerized execution)
 - Git
 

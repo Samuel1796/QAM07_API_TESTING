@@ -1,5 +1,5 @@
-# Use Maven with OpenJDK 11 as base image
-FROM maven:3.8-openjdk-11
+# Use Maven with OpenJDK 17 as base image for modern Java support
+FROM maven:3.9-eclipse-temurin-17
 
 # Set working directory
 WORKDIR /app
