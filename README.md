@@ -339,6 +339,4 @@ This project is for educational and testing purposes.
 
 For questions or issues, please open a GitHub issue.
 
----
 
-**Built with ❤️ using modern Java technologies**
