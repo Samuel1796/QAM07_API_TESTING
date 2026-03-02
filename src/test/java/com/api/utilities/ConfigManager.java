@@ -52,10 +52,10 @@ public class ConfigManager {
      * This URL is used as the foundation for all API endpoint requests.
      * </p>
      *
-     * @return the base URL from properties, or default "https://jsonplaceholder.typicode.com"
+     * @return the base URL from properties"
      */
     public static String getBaseUrl() {
-        return properties.getProperty("base.url", "https://jsonplaceholder.typicode.com");
+        return properties.getProperty("base.url", " ");
     }
     
     /**
@@ -104,7 +104,7 @@ public class ConfigManager {
      *
      * @return true if response logging is enabled, default is true
      */
-    public static boolean shouldLogResponses() {
-        return Boolean.parseBoolean(properties.getProperty("log.responses", "true"));
-    }
+//    public static boolean shouldLogResponses() {
+//        return Boolean.parseBoolean(properties.getProperty("log.responses", "true"));
+//    }
 }

@@ -17,9 +17,6 @@ import static io.restassured.RestAssured.given;
  * before execution.
  * </p>
  *
- * @author API Test Automation Team
- * @version 2.0
- * @since 1.0
  */
 public class RequestBuilder {
     

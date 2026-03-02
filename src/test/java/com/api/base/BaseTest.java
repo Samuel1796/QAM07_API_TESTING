@@ -1,5 +1,6 @@
 package com.api.base;
 
+import com.api.listeners.TestResultLogger;
 import com.api.utilities.ConfigManager;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
@@ -8,6 +9,9 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Base Test class for all API test classes.
@@ -25,13 +29,23 @@ import org.junit.jupiter.api.TestInstance;
  * that {@code @BeforeAll} methods are executed once per test class instance rather
  * than once per test method.
  * </p>
+ * <p>
+ * The {@code @ExtendWith(TestResultLogger.class)} annotation enables automatic
+ * logging of test results with timestamps and status information.
+ * </p>
  *
  * @author API Test Automation Team
  * @version 2.0
  * @since 1.0
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@ExtendWith(TestResultLogger.class)
 public abstract class BaseTest {
+    
+    /**
+     * Logger instance for this class.
+     */
+    protected static final Logger logger = LoggerFactory.getLogger(BaseTest.class);
     
     /**
      * Request specification that contains common configuration for all API requests.
@@ -55,6 +69,8 @@ public abstract class BaseTest {
      */
     @BeforeAll
     public void setup() {
+        logger.info("Initializing test framework with base URL: {}", ConfigManager.getBaseUrl());
+        
         RestAssured.baseURI = ConfigManager.getBaseUrl();
         
         RequestSpecBuilder builder = new RequestSpecBuilder();
@@ -62,13 +78,15 @@ public abstract class BaseTest {
         builder.addHeader("Accept", "application/json");
         builder.addFilter(new AllureRestAssured());
         
-        if (ConfigManager.shouldLogRequests()) {
-            builder.log(LogDetail.ALL);
-        }
+        // Disable console logging for REST Assured requests/responses
+        // Logs are still captured in Allure reports
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         
         requestSpec = builder.build();
         
         RestAssured.requestSpecification = requestSpec;
+        
+        logger.info("Test framework initialized successfully");
     }
     
     /**
