@@ -7,6 +7,7 @@ import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.specification.RequestSpecification;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -100,5 +101,26 @@ public abstract class BaseTest {
      */
     protected RequestSpecification getRequestSpec() {
         return requestSpec;
+    }
+    
+    /**
+     * Teardown method executed once after all tests in the test class.
+     * <p>
+     * This method performs cleanup operations including:
+     * <ul>
+     *   <li>Resetting REST Assured configuration to defaults</li>
+     *   <li>Clearing base URI and request specifications</li>
+     *   <li>Logging test suite completion</li>
+     * </ul>
+     * </p>
+     */
+    @AfterAll
+    public void teardown() {
+        logger.info("Cleaning up test framework resources");
+        
+        // Reset REST Assured to default configuration
+        RestAssured.reset();
+        
+        logger.info("Test framework cleanup completed");
     }
 }
