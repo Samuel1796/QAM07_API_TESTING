@@ -32,7 +32,7 @@ public class RequestBuilder {
      */
     public static RequestSpecification buildGetRequest(String endpoint) {
         return given()
-                .contentType("application/json")
+                .contentType("application/json")     // Set Content-Type header to application/json for all requests
                 .when();
     }
     

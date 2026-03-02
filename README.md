@@ -107,17 +107,116 @@ target/surefire-reports/index.html
 
 ### Docker Execution
 
-#### Build Docker image:
+The framework supports containerized test execution using Docker, ensuring consistency across different environments.
+
+#### Prerequisites
+- Docker Desktop installed and running
+- Docker daemon accessible
+
+#### Build Docker Image
+
+Build the Docker image with all dependencies:
+
 ```bash
 docker build -t api-test-automation .
 ```
 
-#### Run tests in Docker container:
+This creates an image based on Maven 3.9 with Eclipse Temurin JDK 17, including:
+- All Maven dependencies pre-downloaded
+- Source code and test resources
+- Configured test execution environment
+
+#### Run Tests in Docker
+
+Execute tests in a Docker container with volume mounting for reports:
+
 ```bash
+# Windows (PowerShell) - RECOMMENDED - Use this simple command
 docker run --rm -v ${PWD}/target:/app/target api-test-automation
+
+# Windows (CMD) - Use absolute path with quotes
+docker run --rm -v "C:\Users\YourUsername\path\to\project\target":/app/target api-test-automation
+
+# Linux/Mac
+docker run --rm -v $(pwd)/target:/app/target api-test-automation
 ```
 
-The test reports will be available in the `target/` directory on your host machine.
+**For PowerShell users (RECOMMENDED):**
+- Use `${PWD}/target` - PowerShell automatically converts the path
+- This is the simplest and most reliable method on Windows
+
+**For CMD users:**
+- You MUST use the absolute path in quotes
+- Example: `docker run --rm -v "C:\path\to\project\target":/app/target api-test-automation`
+
+**What happens:**
+- Container starts with the test image
+- Runs `mvn clean test` inside the container
+- Test reports are written to `/app/target` inside container
+- Volume mount maps container's `/app/target` to your local `target/` directory
+- Reports are accessible on your host machine after tests complete
+- Container is automatically removed after execution (`--rm` flag)
+
+#### View Docker Test Reports
+
+After running tests in Docker, reports are available locally:
+
+```bash
+# Surefire reports
+target/surefire-reports/
+
+# Allure results (generate report with Allure CLI)
+allure serve target/allure-results
+```
+
+#### Docker in CI/CD Pipeline
+
+The GitHub Actions workflow includes a `docker-test` job that:
+1. Builds the Docker image in the CI environment
+2. Runs tests in the container
+3. Uploads test results as artifacts
+4. Runs independently from the main test job for validation
+
+This ensures the Docker setup works correctly and provides an additional validation layer.
+
+#### Docker Best Practices
+
+The project includes:
+- **`.dockerignore`**: Excludes unnecessary files from the build context (IDE files, git, docs)
+- **Layer caching**: `pom.xml` is copied first to cache dependency downloads
+- **Volume mounting**: Test reports persist on the host machine
+- **Clean execution**: `--rm` flag ensures containers don't accumulate
+
+#### Troubleshooting Docker
+
+**Docker daemon not running:**
+```bash
+# Windows: Start Docker Desktop
+# Linux: sudo systemctl start docker
+# Mac: Start Docker Desktop
+```
+
+**Permission denied (Linux):**
+```bash
+sudo usermod -aG docker $USER
+# Log out and back in for changes to take effect
+```
+
+**Volume mounting issues:**
+```bash
+# Ensure the target directory exists
+mkdir -p target
+
+# Use absolute paths if relative paths fail
+docker run --rm -v /absolute/path/to/target:/app/target api-test-automation
+```
+
+**Build fails:**
+```bash
+# Clean Docker cache and rebuild
+docker system prune -a
+docker build --no-cache -t api-test-automation .
+```
 
 ## Project Structure
 
