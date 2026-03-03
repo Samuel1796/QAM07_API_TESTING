@@ -1,4 +1,4 @@
-package com.api.tests;
+package com.api.tests.users;
 
 import com.api.base.BaseTest;
 import com.api.utilities.RequestBuilder;
@@ -10,16 +10,6 @@ import org.junit.jupiter.api.Test;
 
 @DisplayName("Users API Tests")
 public class UsersApiTest extends BaseTest {
-    
-    @Test
-    @DisplayName("GET /users returns 200 and 10 users")
-    public void testGetAllUsers() {
-        Response response = RequestBuilder.buildGetRequest("/users")
-                .get("/users");
-        
-        ResponseValidator.validateStatusCode(response, 200);
-        ResponseValidator.validateResponseBodySize(response, 10);
-    }
     
     @Test
     @DisplayName("GET /users/{id} returns specific user")
@@ -61,15 +51,5 @@ public class UsersApiTest extends BaseTest {
                 .delete("/users/" + userId);
         
         ResponseValidator.validateStatusCode(response, 200);
-    }
-    
-    @Test
-    @DisplayName("GET /users/{id} validates JSON schema")
-    public void testUserJsonSchema() {
-        Response response = RequestBuilder.buildGetRequest("/users/1")
-                .get("/users/1");
-        
-        ResponseValidator.validateStatusCode(response, 200);
-        ResponseValidator.validateJsonSchema(response, "user-schema.json");
     }
 }

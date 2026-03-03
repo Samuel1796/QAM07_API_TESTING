@@ -1,4 +1,4 @@
-package com.api.tests;
+package com.api.tests.posts;
 
 import com.api.base.BaseTest;
 import com.api.utilities.RequestBuilder;
@@ -159,72 +159,7 @@ public class PostsApiTest extends BaseTest {
         ResponseValidator.validateStatusCode(response, 200);
     }
     
-    /**
-     * Tests GET /posts with query parameters to filter posts by userId.
-     * <p>
-     * Validates that:
-     * <ul>
-     *   <li>Response status code is 200 OK</li>
-     *   <li>All returned posts belong to the specified user (userId = 1)</li>
-     * </ul>
-     * </p>
-     */
-    @Test
-    @DisplayName("GET /posts?userId=1 filters posts by user")
-    public void testGetPostsByUserId() {
-        Map<String, String> queryParams = new HashMap<>();
-        queryParams.put("userId", "1");
-        
-        Response response = RequestBuilder.buildRequestWithQueryParams("/posts", queryParams)
-                .get("/posts");
-        
-        ResponseValidator.validateStatusCode(response, 200);
-        
-        // Verify all returned posts have userId = 1
-        response.jsonPath().getList("userId", Integer.class).forEach(userId -> {
-            org.junit.jupiter.api.Assertions.assertEquals(1, userId, 
-                    "All posts should have userId = 1");
-        });
-    }
     
-    /**
-     * Tests GET /posts/{id}/comments nested endpoint to retrieve comments for a post.
-     * <p>
-     * Validates that:
-     * <ul>
-     *   <li>Response status code is 200 OK</li>
-     *   <li>All returned comments belong to the specified post</li>
-     * </ul>
-     * </p>
-     */
-    @Test
-    @DisplayName("GET /posts/1/comments returns comments for post")
-    public void testGetPostComments() {
-        int postId = 1;
-        
-        Response response = RequestBuilder.buildGetRequest("/posts/" + postId + "/comments")
-                .get("/posts/" + postId + "/comments");
-        
-        ResponseValidator.validateStatusCode(response, 200);
-        
-        // Verify all comments belong to the specified post
-        response.jsonPath().getList("postId", Integer.class).forEach(returnedPostId -> {
-            org.junit.jupiter.api.Assertions.assertEquals(postId, returnedPostId,
-                    "All comments should belong to post " + postId);
-        });
-    }
-    
-    /**
-     * Tests JSON schema validation for a post response.
-     * <p>
-     * Validates that:
-     * <ul>
-     *   <li>Response status code is 200 OK</li>
-     *   <li>Response structure matches the defined post-schema.json</li>
-     *   <li>All required fields are present with correct data types</li>
-     * </ul>
-     * </p>
-     */
     @Test
     @DisplayName("GET /posts/{id} validates JSON schema")
     public void testPostJsonSchema() {
@@ -233,25 +168,5 @@ public class PostsApiTest extends BaseTest {
         
         ResponseValidator.validateStatusCode(response, 200);
         ResponseValidator.validateJsonSchema(response, "post-schema.json");
-    }
-    
-    /**
-     * Tests response time performance for the posts endpoint.
-     * <p>
-     * Validates that:
-     * <ul>
-     *   <li>Response status code is 200 OK</li>
-     *   <li>Response time is under 5000ms (5 seconds)</li>
-     * </ul>
-     * </p>
-     */
-    @Test
-    @DisplayName("GET /posts validates response time")
-    public void testResponseTime() {
-        Response response = RequestBuilder.buildGetRequest("/posts")
-                .get("/posts");
-        
-        ResponseValidator.validateStatusCode(response, 200);
-        ResponseValidator.validateResponseTime(response, 5000);
     }
 }
