@@ -143,7 +143,6 @@ docker run --rm -v $(pwd)/target:/app/target api-test-automation
 **For PowerShell users (RECOMMENDED):**
 - Use `${PWD}/target` - PowerShell automatically converts the path
 - This is the simplest and most reliable method on Windows
-
 **For CMD users:**
 - You MUST use the absolute path in quotes
 - Example: `docker run --rm -v "C:\path\to\project\target":/app/target api-test-automation`
