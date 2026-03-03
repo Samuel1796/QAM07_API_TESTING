@@ -5,6 +5,7 @@ import com.api.utilities.RequestBuilder;
 import com.api.utilities.ResponseValidator;
 import com.api.utilities.TestDataProvider;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -29,5 +30,28 @@ public class CommentsPostTest extends BaseTest {
                 .post("/comments");
         
         ResponseValidator.validateStatusCode(response, 201);
+    }
+    
+    @Test
+    @DisplayName("POST /comments returns 201 Created status code")
+    public void testCreateCommentReturnsCorrectStatusCode() {
+        Response response = RequestBuilder.buildPostRequest("/comments", TestDataProvider.getCommentData())
+                .post("/comments");
+        
+        Assertions.assertEquals(201, response.getStatusCode(), 
+            "POST should return 201 Created, not 200 OK");
+    }
+    
+    @Test
+    @DisplayName("POST /comments returns created resource with ID")
+    public void testCreateCommentReturnsId() {
+        Response response = RequestBuilder.buildPostRequest("/comments", TestDataProvider.getCommentData())
+                .post("/comments");
+        
+        ResponseValidator.validateStatusCode(response, 201);
+        
+        Integer id = response.jsonPath().get("id");
+        Assertions.assertNotNull(id, 
+            "Response should contain an ID for the created comment");
     }
 }

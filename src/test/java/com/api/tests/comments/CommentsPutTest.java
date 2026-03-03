@@ -1,7 +1,12 @@
 package com.api.tests.comments;
 
 import com.api.base.BaseTest;
+import com.api.utilities.RequestBuilder;
+import com.api.utilities.ResponseValidator;
+import com.api.utilities.TestDataProvider;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for Comments API PUT endpoints.
@@ -16,5 +21,37 @@ import org.junit.jupiter.api.DisplayName;
  */
 @DisplayName("Comments API PUT Tests")
 public class CommentsPutTest extends BaseTest {
-    // No PUT tests exist for Comments in the original file
+    
+    @Test
+    @DisplayName("PUT /comments/{id} updates existing comment")
+    public void testUpdateComment() {
+        int commentId = 1;
+        
+        Response response = RequestBuilder.buildPutRequest("/comments/" + commentId, TestDataProvider.getCommentData())
+                .put("/comments/" + commentId);
+        
+        ResponseValidator.validateStatusCode(response, 200);
+    }
+    
+    @Test
+    @DisplayName("PUT /comments/999 on non-existing resource should return 404")
+    public void testUpdateNonExistingComment_ShouldReturn404() {
+        int nonExistingId = 999;
+        
+        Response response = RequestBuilder.buildPutRequest("/comments/" + nonExistingId, TestDataProvider.getCommentData())
+                .put("/comments/" + nonExistingId);
+        
+        ResponseValidator.validateStatusCode(response, 404);
+    }
+    
+    @Test
+    @DisplayName("PUT /comments/501 beyond valid range should return 404")
+    public void testUpdateCommentBeyondValidRange_ShouldReturn404() {
+        int beyondRangeId = 501; // JSONPlaceholder has comments 1-500
+        
+        Response response = RequestBuilder.buildPutRequest("/comments/" + beyondRangeId, TestDataProvider.getCommentData())
+                .put("/comments/" + beyondRangeId);
+        
+        ResponseValidator.validateStatusCode(response, 404);
+    }
 }

@@ -20,4 +20,26 @@ public class UsersDeleteTest extends BaseTest {
         
         ResponseValidator.validateStatusCode(response, 200);
     }
+    
+    @Test
+    @DisplayName("DELETE /users/999 on non-existing resource should return 404")
+    public void testDeleteNonExistingUser_ShouldReturn404() {
+        int nonExistingId = 999;
+        
+        Response response = RequestBuilder.buildDeleteRequest("/users/" + nonExistingId)
+                .delete("/users/" + nonExistingId);
+        
+        ResponseValidator.validateStatusCode(response, 404);
+    }
+    
+    @Test
+    @DisplayName("DELETE /users/0 with invalid ID should return 404")
+    public void testDeleteUserWithIdZero_ShouldReturn404() {
+        int invalidId = 0;
+        
+        Response response = RequestBuilder.buildDeleteRequest("/users/" + invalidId)
+                .delete("/users/" + invalidId);
+        
+        ResponseValidator.validateStatusCode(response, 404);
+    }
 }
