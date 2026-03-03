@@ -20,4 +20,24 @@ public class UsersGetTest extends BaseTest {
         ResponseValidator.validateStatusCode(response, 200);
         ResponseValidator.validateResponseBodyContains(response, "id", userId);
     }
+    
+    @Test
+    @DisplayName("GET /users/{id} validates JSON schema")
+    public void testUserJsonSchema() {
+        Response response = RequestBuilder.buildGetRequest("/users/1")
+                .get("/users/1");
+        
+        ResponseValidator.validateStatusCode(response, 200);
+        ResponseValidator.validateJsonSchema(response, "user-schema.json");
+    }
+    
+    @Test
+    @DisplayName("GET /users returns 200 and list of users")
+    public void testGetAllUsers() {
+        Response response = RequestBuilder.buildGetRequest("/users")
+                .get("/users");
+        
+        ResponseValidator.validateStatusCode(response, 200);
+        ResponseValidator.validateHeader(response, "Content-Type", "application/json");
+    }
 }

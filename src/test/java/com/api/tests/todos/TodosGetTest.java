@@ -20,4 +20,24 @@ public class TodosGetTest extends BaseTest {
         ResponseValidator.validateStatusCode(response, 200);
         ResponseValidator.validateResponseBodyContains(response, "id", todoId);
     }
+    
+    @Test
+    @DisplayName("GET /todos/{id} validates JSON schema")
+    public void testTodoJsonSchema() {
+        Response response = RequestBuilder.buildGetRequest("/todos/1")
+                .get("/todos/1");
+        
+        ResponseValidator.validateStatusCode(response, 200);
+        ResponseValidator.validateJsonSchema(response, "todo-schema.json");
+    }
+    
+    @Test
+    @DisplayName("GET /todos returns 200 and list of todos")
+    public void testGetAllTodos() {
+        Response response = RequestBuilder.buildGetRequest("/todos")
+                .get("/todos");
+        
+        ResponseValidator.validateStatusCode(response, 200);
+        ResponseValidator.validateHeader(response, "Content-Type", "application/json");
+    }
 }

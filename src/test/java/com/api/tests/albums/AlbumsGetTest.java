@@ -31,4 +31,24 @@ public class AlbumsGetTest extends BaseTest {
         ResponseValidator.validateStatusCode(response, 200);
         ResponseValidator.validateResponseBodyContains(response, "id", albumId);
     }
+    
+    @Test
+    @DisplayName("GET /albums/{id} validates JSON schema")
+    public void testAlbumJsonSchema() {
+        Response response = RequestBuilder.buildGetRequest("/albums/1")
+                .get("/albums/1");
+        
+        ResponseValidator.validateStatusCode(response, 200);
+        ResponseValidator.validateJsonSchema(response, "album-schema.json");
+    }
+    
+    @Test
+    @DisplayName("GET /albums returns 200 and list of albums")
+    public void testGetAllAlbums() {
+        Response response = RequestBuilder.buildGetRequest("/albums")
+                .get("/albums");
+        
+        ResponseValidator.validateStatusCode(response, 200);
+        ResponseValidator.validateHeader(response, "Content-Type", "application/json");
+    }
 }

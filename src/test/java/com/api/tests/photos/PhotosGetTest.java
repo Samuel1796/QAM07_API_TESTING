@@ -20,4 +20,24 @@ public class PhotosGetTest extends BaseTest {
         ResponseValidator.validateStatusCode(response, 200);
         ResponseValidator.validateResponseBodyContains(response, "id", photoId);
     }
+    
+    @Test
+    @DisplayName("GET /photos/{id} validates JSON schema")
+    public void testPhotoJsonSchema() {
+        Response response = RequestBuilder.buildGetRequest("/photos/1")
+                .get("/photos/1");
+        
+        ResponseValidator.validateStatusCode(response, 200);
+        ResponseValidator.validateJsonSchema(response, "photo-schema.json");
+    }
+    
+    @Test
+    @DisplayName("GET /photos returns 200 and list of photos")
+    public void testGetAllPhotos() {
+        Response response = RequestBuilder.buildGetRequest("/photos")
+                .get("/photos");
+        
+        ResponseValidator.validateStatusCode(response, 200);
+        ResponseValidator.validateHeader(response, "Content-Type", "application/json");
+    }
 }

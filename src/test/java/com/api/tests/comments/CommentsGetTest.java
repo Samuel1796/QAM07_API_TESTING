@@ -31,4 +31,24 @@ public class CommentsGetTest extends BaseTest {
         ResponseValidator.validateStatusCode(response, 200);
         ResponseValidator.validateResponseBodyContains(response, "id", commentId);
     }
+    
+    @Test
+    @DisplayName("GET /comments/{id} validates JSON schema")
+    public void testCommentJsonSchema() {
+        Response response = RequestBuilder.buildGetRequest("/comments/1")
+                .get("/comments/1");
+        
+        ResponseValidator.validateStatusCode(response, 200);
+        ResponseValidator.validateJsonSchema(response, "comment-schema.json");
+    }
+    
+    @Test
+    @DisplayName("GET /comments returns 200 and list of comments")
+    public void testGetAllComments() {
+        Response response = RequestBuilder.buildGetRequest("/comments")
+                .get("/comments");
+        
+        ResponseValidator.validateStatusCode(response, 200);
+        ResponseValidator.validateHeader(response, "Content-Type", "application/json");
+    }
 }
