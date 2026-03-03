@@ -28,9 +28,14 @@ import java.util.UUID;
  * - Boundary values: First ID (1), Last ID (max), Middle values
  * - Invalid partition: IDs outside the range (0, max+1, negative)
  * </p>
+ * <p>
+ * This class consolidates all test data generation logic previously distributed
+ * across separate generator classes (AlbumDataGenerator, CommentDataGenerator, etc.)
+ * for better maintainability and centralized data management.
+ * </p>
  *
  * @author API Test Automation Team
- * @version 2.0
+ * @version 3.0
  * @since 1.0
  */
 public class TestDataProvider {

@@ -9,30 +9,18 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test class for Albums API endpoints.
+ * Test class for Albums API POST endpoints.
  * <p>
- * This class contains comprehensive tests for all CRUD operations on the /albums
- * resource of the JSONPlaceholder API. Albums are collections of photos associated
- * with users.
+ * This class contains tests for POST operations on the /albums
+ * resource of the JSONPlaceholder API.
  * </p>
  *
  * @author API Test Automation Team
  * @version 2.0
  * @since 1.0
  */
-@DisplayName("Albums API Tests")
-public class AlbumsApiTest extends BaseTest {
-    
-    @Test
-    @DisplayName("GET /albums/{id} returns specific album")
-    public void testGetAlbumById() {
-        int albumId = 1;
-        Response response = RequestBuilder.buildGetRequest("/albums/" + albumId)
-                .get("/albums/" + albumId);
-        
-        ResponseValidator.validateStatusCode(response, 200);
-        ResponseValidator.validateResponseBodyContains(response, "id", albumId);
-    }
+@DisplayName("Albums API POST Tests")
+public class AlbumsPostTest extends BaseTest {
     
     @Test
     @DisplayName("POST /albums creates new album")

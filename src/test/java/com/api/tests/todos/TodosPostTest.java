@@ -8,19 +8,8 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("Todos API Tests")
-public class TodosApiTest extends BaseTest {
-    
-    @Test
-    @DisplayName("GET /todos/{id} returns specific todo")
-    public void testGetTodoById() {
-        int todoId = 1;
-        Response response = RequestBuilder.buildGetRequest("/todos/" + todoId)
-                .get("/todos/" + todoId);
-        
-        ResponseValidator.validateStatusCode(response, 200);
-        ResponseValidator.validateResponseBodyContains(response, "id", todoId);
-    }
+@DisplayName("Todos API POST Tests")
+public class TodosPostTest extends BaseTest {
     
     @Test
     @DisplayName("POST /todos creates new todo")
