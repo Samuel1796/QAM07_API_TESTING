@@ -1,0 +1,63 @@
+<div>PUT to https://jsonplaceholder.typicode.com/users/999</div>
+
+    <h4>Body</h4>
+    <div>
+    <pre class="preformated-text">
+{
+    &quot;website&quot;: &quot;website 24b2c8d2.com&quot;,
+    &quot;address&quot;: {
+        &quot;zipcode&quot;: &quot;40875&quot;,
+        &quot;geo&quot;: {
+            &quot;lng&quot;: &quot;114.2507&quot;,
+            &quot;lat&quot;: &quot;-39.1316&quot;
+        },
+        &quot;suite&quot;: &quot;Apt. 397&quot;,
+        &quot;city&quot;: &quot;City 87bf34e7&quot;,
+        &quot;street&quot;: &quot;Street 5eefa3a1&quot;
+    },
+    &quot;phone&quot;: &quot;336-321-8566&quot;,
+    &quot;name&quot;: &quot;Test User 73ad8b28&quot;,
+    &quot;company&quot;: {
+        &quot;bs&quot;: &quot;synergize 1216d8fb&quot;,
+        &quot;catchPhrase&quot;: &quot;Innovative solutions 05781027&quot;,
+        &quot;name&quot;: &quot;Company b0107a5d&quot;
+    },
+    &quot;email&quot;: &quot;test3361b2c5@example.com&quot;,
+    &quot;username&quot;: &quot;user de2dbbff&quot;
+}    </pre>
+    </div>
+
+    <h4>Headers</h4>
+    <div>
+            <div>Accept: application/json</div>
+            <div>Content-Type: application/json</div>
+    </div>
+
+
+
+    <h4>Curl</h4>
+    <div>
+        curl -v -X PUT &#39;https://jsonplaceholder.typicode.com/users/999&#39; -H &#39;Accept: application/json&#39; -H &#39;Content-Type: application/json&#39; -d &#39;{
+    &quot;website&quot;: &quot;website 24b2c8d2.com&quot;,
+    &quot;address&quot;: {
+        &quot;zipcode&quot;: &quot;40875&quot;,
+        &quot;geo&quot;: {
+            &quot;lng&quot;: &quot;114.2507&quot;,
+            &quot;lat&quot;: &quot;-39.1316&quot;
+        },
+        &quot;suite&quot;: &quot;Apt. 397&quot;,
+        &quot;city&quot;: &quot;City 87bf34e7&quot;,
+        &quot;street&quot;: &quot;Street 5eefa3a1&quot;
+    },
+    &quot;phone&quot;: &quot;336-321-8566&quot;,
+    &quot;name&quot;: &quot;Test User 73ad8b28&quot;,
+    &quot;company&quot;: {
+        &quot;bs&quot;: &quot;synergize 1216d8fb&quot;,
+        &quot;catchPhrase&quot;: &quot;Innovative solutions 05781027&quot;,
+        &quot;name&quot;: &quot;Company b0107a5d&quot;
+    },
+    &quot;email&quot;: &quot;test3361b2c5@example.com&quot;,
+    &quot;username&quot;: &quot;user de2dbbff&quot;
+}&#39;
+    </div>
+
