@@ -1,0 +1,63 @@
+<div>POST to https://jsonplaceholder.typicode.com/users</div>
+
+    <h4>Body</h4>
+    <div>
+    <pre class="preformated-text">
+{
+    &quot;website&quot;: &quot;website d8e38a41.com&quot;,
+    &quot;address&quot;: {
+        &quot;zipcode&quot;: &quot;34044&quot;,
+        &quot;geo&quot;: {
+            &quot;lng&quot;: &quot;124.1540&quot;,
+            &quot;lat&quot;: &quot;-79.8310&quot;
+        },
+        &quot;suite&quot;: &quot;Apt. 574&quot;,
+        &quot;city&quot;: &quot;City 4f67d6d4&quot;,
+        &quot;street&quot;: &quot;Street 809b36f7&quot;
+    },
+    &quot;phone&quot;: &quot;183-310-6192&quot;,
+    &quot;name&quot;: &quot;Test User d42d6426&quot;,
+    &quot;company&quot;: {
+        &quot;bs&quot;: &quot;synergize b6e80ddb&quot;,
+        &quot;catchPhrase&quot;: &quot;Innovative solutions 49da5387&quot;,
+        &quot;name&quot;: &quot;Company ef305fe1&quot;
+    },
+    &quot;email&quot;: &quot;test6067836f@example.com&quot;,
+    &quot;username&quot;: &quot;user d4fcbe3e&quot;
+}    </pre>
+    </div>
+
+    <h4>Headers</h4>
+    <div>
+            <div>Accept: application/json</div>
+            <div>Content-Type: application/json</div>
+    </div>
+
+
+
+    <h4>Curl</h4>
+    <div>
+        curl -v -X POST &#39;https://jsonplaceholder.typicode.com/users&#39; -H &#39;Accept: application/json&#39; -H &#39;Content-Type: application/json&#39; -d &#39;{
+    &quot;website&quot;: &quot;website d8e38a41.com&quot;,
+    &quot;address&quot;: {
+        &quot;zipcode&quot;: &quot;34044&quot;,
+        &quot;geo&quot;: {
+            &quot;lng&quot;: &quot;124.1540&quot;,
+            &quot;lat&quot;: &quot;-79.8310&quot;
+        },
+        &quot;suite&quot;: &quot;Apt. 574&quot;,
+        &quot;city&quot;: &quot;City 4f67d6d4&quot;,
+        &quot;street&quot;: &quot;Street 809b36f7&quot;
+    },
+    &quot;phone&quot;: &quot;183-310-6192&quot;,
+    &quot;name&quot;: &quot;Test User d42d6426&quot;,
+    &quot;company&quot;: {
+        &quot;bs&quot;: &quot;synergize b6e80ddb&quot;,
+        &quot;catchPhrase&quot;: &quot;Innovative solutions 49da5387&quot;,
+        &quot;name&quot;: &quot;Company ef305fe1&quot;
+    },
+    &quot;email&quot;: &quot;test6067836f@example.com&quot;,
+    &quot;username&quot;: &quot;user d4fcbe3e&quot;
+}&#39;
+    </div>
+
