@@ -48,51 +48,6 @@ public class AlbumsTestData {
         return albumData;
     }
     
-    /**
-     * Generates a valid random album ID within the range 1-100.
-     *
-     * @return valid album ID
-     */
-    public static int getValidAlbumId() {
-        return TestDataUtils.randomInt(1, MAX_ALBUMS);
-    }
-    
-    /**
-     * Generates an invalid album ID outside the valid range.
-     * Returns either 0, a negative number, or a number greater than 100.
-     *
-     * @return invalid album ID
-     */
-    public static int getInvalidAlbumId() {
-        int choice = TestDataUtils.randomInt(1, 3);
-        switch (choice) {
-            case 1:
-                return 0;
-            case 2:
-                return TestDataUtils.randomInt(-100, -1);
-            default:
-                return TestDataUtils.randomInt(MAX_ALBUMS + 1, MAX_ALBUMS + 100);
-        }
-    }
-    
-    /**
-     * Generates boundary value album IDs based on the specified boundary type.
-     *
-     * @param boundaryType the type of boundary value: "min", "max", "below_min", or "above_max"
-     * @return boundary value album ID
-     */
-    public static int getBoundaryAlbumId(String boundaryType) {
-        switch (boundaryType.toLowerCase()) {
-            case "min":
-                return 1;
-            case "max":
-                return MAX_ALBUMS;
-            case "below_min":
-                return 0;
-            case "above_max":
-                return MAX_ALBUMS + 1;
-            default:
-                return 1; // Safe default
-        }
-    }
+
+
 }

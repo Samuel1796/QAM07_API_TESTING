@@ -50,15 +50,7 @@ public class PostsTestData {
         return postData;
     }
     
-    /**
-     * Generates a valid random post ID within the range 1-100.
-     *
-     * @return valid post ID
-     */
-    public static int getValidPostId() {
-        return TestDataUtils.randomInt(1, MAX_POSTS);
-    }
-    
+
     /**
      * Generates an invalid post ID outside the valid range.
      * Returns either 0, a negative number, or a number greater than 100.
