@@ -1,0 +1,31 @@
+<div>POST to https://jsonplaceholder.typicode.com/comments</div>
+
+    <h4>Body</h4>
+    <div>
+    <pre class="preformated-text">
+{
+    &quot;name&quot;: &quot;Test Comment a8f8a273&quot;,
+    &quot;postId&quot;: 51,
+    &quot;body&quot;: &quot;Test comment body 8bdeae8d-d841-4c0e-8375-2be193f00484&quot;,
+    &quot;email&quot;: &quot;test2ec7212f@example.com&quot;
+}    </pre>
+    </div>
+
+    <h4>Headers</h4>
+    <div>
+            <div>Accept: application/json</div>
+            <div>Content-Type: application/json</div>
+    </div>
+
+
+
+    <h4>Curl</h4>
+    <div>
+        curl -v -X POST &#39;https://jsonplaceholder.typicode.com/comments&#39; -H &#39;Accept: application/json&#39; -H &#39;Content-Type: application/json&#39; -d &#39;{
+    &quot;name&quot;: &quot;Test Comment a8f8a273&quot;,
+    &quot;postId&quot;: 51,
+    &quot;body&quot;: &quot;Test comment body 8bdeae8d-d841-4c0e-8375-2be193f00484&quot;,
+    &quot;email&quot;: &quot;test2ec7212f@example.com&quot;
+}&#39;
+    </div>
+
