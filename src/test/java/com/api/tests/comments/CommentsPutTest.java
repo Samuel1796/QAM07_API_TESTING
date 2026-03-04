@@ -1,9 +1,9 @@
 package com.api.tests.comments;
 
 import com.api.base.BaseTest;
+import com.api.testdata.CommentsTestData;
 import com.api.utilities.RequestBuilder;
 import com.api.utilities.ResponseValidator;
-import com.api.utilities.TestDataProvider;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ public class CommentsPutTest extends BaseTest {
     public void testUpdateComment() {
         int commentId = 1;
         
-        Response response = RequestBuilder.buildPutRequest("/comments/" + commentId, TestDataProvider.getCommentData())
+        Response response = RequestBuilder.buildPutRequest("/comments/" + commentId, CommentsTestData.getCommentData())
                 .put("/comments/" + commentId);
         
         ResponseValidator.validateStatusCode(response, 200);
@@ -38,7 +38,7 @@ public class CommentsPutTest extends BaseTest {
     public void testUpdateNonExistingComment_ShouldReturn404() {
         int nonExistingId = 999;
         
-        Response response = RequestBuilder.buildPutRequest("/comments/" + nonExistingId, TestDataProvider.getCommentData())
+        Response response = RequestBuilder.buildPutRequest("/comments/" + nonExistingId, CommentsTestData.getCommentData())
                 .put("/comments/" + nonExistingId);
         
         ResponseValidator.validateStatusCode(response, 404);
@@ -49,7 +49,7 @@ public class CommentsPutTest extends BaseTest {
     public void testUpdateCommentBeyondValidRange_ShouldReturn404() {
         int beyondRangeId = 501; // JSONPlaceholder has comments 1-500
         
-        Response response = RequestBuilder.buildPutRequest("/comments/" + beyondRangeId, TestDataProvider.getCommentData())
+        Response response = RequestBuilder.buildPutRequest("/comments/" + beyondRangeId, CommentsTestData.getCommentData())
                 .put("/comments/" + beyondRangeId);
         
         ResponseValidator.validateStatusCode(response, 404);

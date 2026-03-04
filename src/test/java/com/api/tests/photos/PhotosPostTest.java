@@ -1,9 +1,9 @@
 package com.api.tests.photos;
 
 import com.api.base.BaseTest;
+import com.api.testdata.PhotosTestData;
 import com.api.utilities.RequestBuilder;
 import com.api.utilities.ResponseValidator;
-import com.api.utilities.TestDataProvider;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -15,7 +15,7 @@ public class PhotosPostTest extends BaseTest {
     @Test
     @DisplayName("POST /photos creates new photo")
     public void testCreatePhoto() {
-        Response response = RequestBuilder.buildPostRequest("/photos", TestDataProvider.getPhotoData())
+        Response response = RequestBuilder.buildPostRequest("/photos", PhotosTestData.getPhotoData())
                 .post("/photos");
         
         ResponseValidator.validateStatusCode(response, 201);
@@ -24,7 +24,7 @@ public class PhotosPostTest extends BaseTest {
     @Test
     @DisplayName("POST /photos returns 201 Created status code")
     public void testCreatePhotoReturnsCorrectStatusCode() {
-        Response response = RequestBuilder.buildPostRequest("/photos", TestDataProvider.getPhotoData())
+        Response response = RequestBuilder.buildPostRequest("/photos", PhotosTestData.getPhotoData())
                 .post("/photos");
         
         Assertions.assertEquals(201, response.getStatusCode(), 
@@ -34,7 +34,7 @@ public class PhotosPostTest extends BaseTest {
     @Test
     @DisplayName("POST /photos returns created resource with ID")
     public void testCreatePhotoReturnsId() {
-        Response response = RequestBuilder.buildPostRequest("/photos", TestDataProvider.getPhotoData())
+        Response response = RequestBuilder.buildPostRequest("/photos", PhotosTestData.getPhotoData())
                 .post("/photos");
         
         ResponseValidator.validateStatusCode(response, 201);

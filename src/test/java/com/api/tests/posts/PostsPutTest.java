@@ -1,9 +1,9 @@
 package com.api.tests.posts;
 
 import com.api.base.BaseTest;
+import com.api.testdata.PostsTestData;
 import com.api.utilities.RequestBuilder;
 import com.api.utilities.ResponseValidator;
-import com.api.utilities.TestDataProvider;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -43,7 +43,7 @@ public class PostsPutTest extends BaseTest {
     @DisplayName("PUT /posts/{id} updates existing post")
     public void testUpdatePost() {
         int postId = 1;
-        Map<String, Object> postData = TestDataProvider.getPostData();
+        Map<String, Object> postData = PostsTestData.getPostData();
         postData.put("id", postId);
         
         Response response = RequestBuilder.buildPutRequest("/posts/" + postId, postData)
@@ -64,7 +64,7 @@ public class PostsPutTest extends BaseTest {
     @DisplayName("PUT /posts/999 on non-existing resource should return 404")
     public void testUpdateNonExistingPost_ShouldReturn404() {
         int nonExistingId = 999;
-        Map<String, Object> postData = TestDataProvider.getPostData();
+        Map<String, Object> postData = PostsTestData.getPostData();
         postData.put("id", nonExistingId);
         
         Response response = RequestBuilder.buildPutRequest("/posts/" + nonExistingId, postData)
@@ -84,7 +84,7 @@ public class PostsPutTest extends BaseTest {
     @DisplayName("PUT /posts/101 beyond valid range should return 404")
     public void testUpdatePostBeyondValidRange_ShouldReturn404() {
         int beyondRangeId = 101;
-        Map<String, Object> postData = TestDataProvider.getPostData();
+        Map<String, Object> postData = PostsTestData.getPostData();
         postData.put("id", beyondRangeId);
         
         Response response = RequestBuilder.buildPutRequest("/posts/" + beyondRangeId, postData)
@@ -104,7 +104,7 @@ public class PostsPutTest extends BaseTest {
     @DisplayName("PUT /posts/0 with invalid ID zero should return 404")
     public void testUpdatePostWithIdZero_ShouldReturn404() {
         int invalidId = 0;
-        Map<String, Object> postData = TestDataProvider.getPostData();
+        Map<String, Object> postData = PostsTestData.getPostData();
         postData.put("id", invalidId);
         
         Response response = RequestBuilder.buildPutRequest("/posts/" + invalidId, postData)
@@ -124,7 +124,7 @@ public class PostsPutTest extends BaseTest {
     @DisplayName("PUT /posts/{id} returns all updated fields")
     public void testUpdatePostReturnsAllFields() {
         int postId = 1;
-        Map<String, Object> postData = TestDataProvider.getPostData();
+        Map<String, Object> postData = PostsTestData.getPostData();
         postData.put("id", postId);
         
         Response response = RequestBuilder.buildPutRequest("/posts/" + postId, postData)

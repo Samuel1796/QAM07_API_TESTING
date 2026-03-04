@@ -1,9 +1,9 @@
 package com.api.tests.todos;
 
 import com.api.base.BaseTest;
+import com.api.testdata.TodosTestData;
 import com.api.utilities.RequestBuilder;
 import com.api.utilities.ResponseValidator;
-import com.api.utilities.TestDataProvider;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +17,7 @@ public class TodosPutTest extends BaseTest {
     public void testUpdateTodo() {
         int todoId = 1;
         
-        Response response = RequestBuilder.buildPutRequest("/todos/" + todoId, TestDataProvider.getTodoData())
+        Response response = RequestBuilder.buildPutRequest("/todos/" + todoId, TodosTestData.getTodoData())
                 .put("/todos/" + todoId);
         
         ResponseValidator.validateStatusCode(response, 200);
@@ -28,7 +28,7 @@ public class TodosPutTest extends BaseTest {
     public void testUpdateNonExistingTodo_ShouldReturn404() {
         int nonExistingId = 999;
         
-        Response response = RequestBuilder.buildPutRequest("/todos/" + nonExistingId, TestDataProvider.getTodoData())
+        Response response = RequestBuilder.buildPutRequest("/todos/" + nonExistingId, TodosTestData.getTodoData())
                 .put("/todos/" + nonExistingId);
         
         ResponseValidator.validateStatusCode(response, 404);
@@ -39,7 +39,7 @@ public class TodosPutTest extends BaseTest {
     public void testUpdateTodoBeyondValidRange_ShouldReturn404() {
         int beyondRangeId = 201; // JSONPlaceholder has todos 1-200
         
-        Response response = RequestBuilder.buildPutRequest("/todos/" + beyondRangeId, TestDataProvider.getTodoData())
+        Response response = RequestBuilder.buildPutRequest("/todos/" + beyondRangeId, TodosTestData.getTodoData())
                 .put("/todos/" + beyondRangeId);
         
         ResponseValidator.validateStatusCode(response, 404);

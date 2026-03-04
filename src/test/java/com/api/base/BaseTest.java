@@ -99,10 +99,10 @@ public abstract class BaseTest {
      *
      * @return the configured RequestSpecification instance
      */
-    protected RequestSpecification getRequestSpec() {
-        return requestSpec;
-    }
-    
+//    protected RequestSpecification getRequestSpec() {
+//        return requestSpec;
+//    }
+
     /**
      * Teardown method executed once after all tests in the test class.
      * <p>

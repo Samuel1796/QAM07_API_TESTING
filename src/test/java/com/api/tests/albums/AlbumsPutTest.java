@@ -1,9 +1,9 @@
 package com.api.tests.albums;
 
 import com.api.base.BaseTest;
+import com.api.testdata.AlbumsTestData;
 import com.api.utilities.RequestBuilder;
 import com.api.utilities.ResponseValidator;
-import com.api.utilities.TestDataProvider;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -28,7 +28,7 @@ public class AlbumsPutTest extends BaseTest {
     public void testUpdateAlbum() {
         int albumId = 1;
         
-        Response response = RequestBuilder.buildPutRequest("/albums/" + albumId, TestDataProvider.getAlbumData())
+        Response response = RequestBuilder.buildPutRequest("/albums/" + albumId, AlbumsTestData.getAlbumData())
                 .put("/albums/" + albumId);
         
         ResponseValidator.validateStatusCode(response, 200);
@@ -39,7 +39,7 @@ public class AlbumsPutTest extends BaseTest {
     public void testUpdateNonExistingAlbum_ShouldReturn404() {
         int nonExistingId = 999;
         
-        Response response = RequestBuilder.buildPutRequest("/albums/" + nonExistingId, TestDataProvider.getAlbumData())
+        Response response = RequestBuilder.buildPutRequest("/albums/" + nonExistingId, AlbumsTestData.getAlbumData())
                 .put("/albums/" + nonExistingId);
         
         ResponseValidator.validateStatusCode(response, 404);

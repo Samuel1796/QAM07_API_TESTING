@@ -33,7 +33,7 @@ public class ConfigManager {
      * Attempts to load config.properties from the classpath. If the file is not found
      * or cannot be loaded, the exception is logged and default values will be used.
      * </p>
-     */
+     **/
     static {
         properties = new Properties();
         try (InputStream input = ConfigManager.class.getClassLoader()
@@ -57,54 +57,9 @@ public class ConfigManager {
     public static String getBaseUrl() {
         return properties.getProperty("base.url", " ");
     }
+
+
     
-    /**
-     * Retrieves the default timeout value for API requests.
-     * <p>
-     * This timeout is applied to all HTTP requests to prevent indefinite waiting.
-     * </p>
-     *
-     * @return the timeout in milliseconds, default is 5000ms (5 seconds)
-     */
-    public static int getDefaultTimeout() {
-        return Integer.parseInt(properties.getProperty("default.timeout", "5000"));
-    }
-    
-    /**
-     * Retrieves the current test environment name.
-     * <p>
-     * This can be used to differentiate between test, staging, and production environments.
-     * </p>
-     *
-     * @return the environment name, default is "test"
-     */
-    public static String getEnvironment() {
-        return properties.getProperty("environment", "test");
-    }
-    
-    /**
-     * Determines whether HTTP requests should be logged.
-     * <p>
-     * When enabled, all request details including headers, body, and parameters
-     * will be logged to the console and test reports.
-     * </p>
-     *
-     * @return true if request logging is enabled, default is true
-     */
-    public static boolean shouldLogRequests() {
-        return Boolean.parseBoolean(properties.getProperty("log.requests", "true"));
-    }
-    
-    /**
-     * Determines whether HTTP responses should be logged.
-     * <p>
-     * When enabled, all response details including status code, headers, and body
-     * will be logged to the console and test reports.
-     * </p>
-     *
-     * @return true if response logging is enabled, default is true
-     */
-//    public static boolean shouldLogResponses() {
-//        return Boolean.parseBoolean(properties.getProperty("log.responses", "true"));
-//    }
+
+
 }

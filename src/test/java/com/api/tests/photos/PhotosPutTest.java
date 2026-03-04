@@ -1,9 +1,9 @@
 package com.api.tests.photos;
 
 import com.api.base.BaseTest;
+import com.api.testdata.PhotosTestData;
 import com.api.utilities.RequestBuilder;
 import com.api.utilities.ResponseValidator;
-import com.api.utilities.TestDataProvider;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ public class PhotosPutTest extends BaseTest {
     public void testUpdatePhoto() {
         int photoId = 1;
         
-        Response response = RequestBuilder.buildPutRequest("/photos/" + photoId, TestDataProvider.getPhotoData())
+        Response response = RequestBuilder.buildPutRequest("/photos/" + photoId, PhotosTestData.getPhotoData())
                 .put("/photos/" + photoId);
         
         ResponseValidator.validateStatusCode(response, 200);
@@ -27,7 +27,7 @@ public class PhotosPutTest extends BaseTest {
     public void testUpdateNonExistingPhoto_ShouldReturn404() {
         int nonExistingId = 9999;
         
-        Response response = RequestBuilder.buildPutRequest("/photos/" + nonExistingId, TestDataProvider.getPhotoData())
+        Response response = RequestBuilder.buildPutRequest("/photos/" + nonExistingId, PhotosTestData.getPhotoData())
                 .put("/photos/" + nonExistingId);
         
         ResponseValidator.validateStatusCode(response, 404);
@@ -38,7 +38,7 @@ public class PhotosPutTest extends BaseTest {
     public void testUpdatePhotoBeyondValidRange_ShouldReturn404() {
         int beyondRangeId = 5001; // JSONPlaceholder has photos 1-5000
         
-        Response response = RequestBuilder.buildPutRequest("/photos/" + beyondRangeId, TestDataProvider.getPhotoData())
+        Response response = RequestBuilder.buildPutRequest("/photos/" + beyondRangeId, PhotosTestData.getPhotoData())
                 .put("/photos/" + beyondRangeId);
         
         ResponseValidator.validateStatusCode(response, 404);

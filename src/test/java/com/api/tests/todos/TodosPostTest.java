@@ -1,9 +1,9 @@
 package com.api.tests.todos;
 
 import com.api.base.BaseTest;
+import com.api.testdata.TodosTestData;
 import com.api.utilities.RequestBuilder;
 import com.api.utilities.ResponseValidator;
-import com.api.utilities.TestDataProvider;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -15,7 +15,7 @@ public class TodosPostTest extends BaseTest {
     @Test
     @DisplayName("POST /todos creates new todo")
     public void testCreateTodo() {
-        Response response = RequestBuilder.buildPostRequest("/todos", TestDataProvider.getTodoData())
+        Response response = RequestBuilder.buildPostRequest("/todos", TodosTestData.getTodoData())
                 .post("/todos");
         
         ResponseValidator.validateStatusCode(response, 201);
@@ -24,7 +24,7 @@ public class TodosPostTest extends BaseTest {
     @Test
     @DisplayName("POST /todos returns 201 Created status code")
     public void testCreateTodoReturnsCorrectStatusCode() {
-        Response response = RequestBuilder.buildPostRequest("/todos", TestDataProvider.getTodoData())
+        Response response = RequestBuilder.buildPostRequest("/todos", TodosTestData.getTodoData())
                 .post("/todos");
         
         Assertions.assertEquals(201, response.getStatusCode(), 
@@ -34,7 +34,7 @@ public class TodosPostTest extends BaseTest {
     @Test
     @DisplayName("POST /todos returns created resource with ID")
     public void testCreateTodoReturnsId() {
-        Response response = RequestBuilder.buildPostRequest("/todos", TestDataProvider.getTodoData())
+        Response response = RequestBuilder.buildPostRequest("/todos", TodosTestData.getTodoData())
                 .post("/todos");
         
         ResponseValidator.validateStatusCode(response, 201);

@@ -1,9 +1,9 @@
 package com.api.tests.posts;
 
 import com.api.base.BaseTest;
+import com.api.testdata.PostsTestData;
 import com.api.utilities.RequestBuilder;
 import com.api.utilities.ResponseValidator;
-import com.api.utilities.TestDataProvider;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -42,7 +42,7 @@ public class PostsPostTest extends BaseTest {
     @Test
     @DisplayName("POST /posts creates new post")
     public void testCreatePost() {
-        Map<String, Object> postData = TestDataProvider.getPostData();
+        Map<String, Object> postData = PostsTestData.getPostData();
         
         Response response = RequestBuilder.buildPostRequest("/posts", postData)
                 .post("/posts");
@@ -64,7 +64,7 @@ public class PostsPostTest extends BaseTest {
     @Test
     @DisplayName("POST /posts returns 201 Created status code")
     public void testCreatePostReturnsCorrectStatusCode() {
-        Map<String, Object> postData = TestDataProvider.getPostData();
+        Map<String, Object> postData = PostsTestData.getPostData();
         
         Response response = RequestBuilder.buildPostRequest("/posts", postData)
                 .post("/posts");
@@ -85,7 +85,7 @@ public class PostsPostTest extends BaseTest {
     @Test
     @DisplayName("POST /posts returns ID 101 for new resource")
     public void testCreatePostReturnsId101() {
-        Map<String, Object> postData = TestDataProvider.getPostData();
+        Map<String, Object> postData = PostsTestData.getPostData();
         
         Response response = RequestBuilder.buildPostRequest("/posts", postData)
                 .post("/posts");
@@ -107,7 +107,7 @@ public class PostsPostTest extends BaseTest {
     @Test
     @DisplayName("POST /posts returns all submitted fields")
     public void testCreatePostReturnsAllFields() {
-        Map<String, Object> postData = TestDataProvider.getPostData();
+        Map<String, Object> postData = PostsTestData.getPostData();
         
         Response response = RequestBuilder.buildPostRequest("/posts", postData)
                 .post("/posts");

@@ -1,9 +1,9 @@
 package com.api.tests.comments;
 
 import com.api.base.BaseTest;
+import com.api.testdata.CommentsTestData;
 import com.api.utilities.RequestBuilder;
 import com.api.utilities.ResponseValidator;
-import com.api.utilities.TestDataProvider;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -26,7 +26,7 @@ public class CommentsPostTest extends BaseTest {
     @Test
     @DisplayName("POST /comments creates new comment")
     public void testCreateComment() {
-        Response response = RequestBuilder.buildPostRequest("/comments", TestDataProvider.getCommentData())
+        Response response = RequestBuilder.buildPostRequest("/comments", CommentsTestData.getCommentData())
                 .post("/comments");
         
         ResponseValidator.validateStatusCode(response, 201);
@@ -35,7 +35,7 @@ public class CommentsPostTest extends BaseTest {
     @Test
     @DisplayName("POST /comments returns 201 Created status code")
     public void testCreateCommentReturnsCorrectStatusCode() {
-        Response response = RequestBuilder.buildPostRequest("/comments", TestDataProvider.getCommentData())
+        Response response = RequestBuilder.buildPostRequest("/comments", CommentsTestData.getCommentData())
                 .post("/comments");
         
         Assertions.assertEquals(201, response.getStatusCode(), 
@@ -45,7 +45,7 @@ public class CommentsPostTest extends BaseTest {
     @Test
     @DisplayName("POST /comments returns created resource with ID")
     public void testCreateCommentReturnsId() {
-        Response response = RequestBuilder.buildPostRequest("/comments", TestDataProvider.getCommentData())
+        Response response = RequestBuilder.buildPostRequest("/comments", CommentsTestData.getCommentData())
                 .post("/comments");
         
         ResponseValidator.validateStatusCode(response, 201);
