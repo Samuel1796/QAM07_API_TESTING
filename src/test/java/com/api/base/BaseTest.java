@@ -85,6 +85,7 @@ public abstract class BaseTest {
         builder.setContentType("application/json");
 
         // Set Accept header to JSON for all responses
+
         builder.addHeader("Accept", "application/json");
 
         // Add Allure filter to capture request/response details in Allure reports
