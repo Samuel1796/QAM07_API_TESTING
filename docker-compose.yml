@@ -1,0 +1,67 @@
+# ==============================================================================
+# SIMPLIFIED DOCKER COMPOSE: Tests Only (No Report Server)
+# ==============================================================================
+# This version runs ONLY the test container without the Allure report server
+# ==============================================================================
+
+version: '3.8'
+
+services:
+  # ----------------------------------------------------------------------------
+  # SERVICE: API Test Runner (Tests Only)
+  # ----------------------------------------------------------------------------
+  api-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-test-runner
+    
+    # Environment variables for test configuration
+    environment:
+      - BASE_URL=${BASE_URL:-https://jsonplaceholder.typicode.com}
+      - ENVIRONMENT=${ENVIRONMENT:-test}
+      - LOG_REQUESTS=${LOG_REQUESTS:-true}
+    
+    # Volume mounts for persisting test results
+    volumes:
+      # Mount target directory to persist test reports on host
+      - ./target:/app/target
+      # Mount source code for live updates during development
+      - ./src:/app/src:ro
+      # Mount config for environment-specific settings
+      - ./src/test/resources/config.properties:/app/src/test/resources/config.properties:ro
+    
+    # Restart policy
+    restart: "no"  # Don't restart after tests complete
+    
+    # Resource limits (optional)
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '1.0'
+          memory: 1G
+
+# ==============================================================================
+# USAGE INSTRUCTIONS
+# ==============================================================================
+#
+# 1. RUN TESTS:
+#    docker-compose -f docker-compose.simple.yml up --build
+#    - Runs tests only
+#    - No report server
+#    - Results saved to ./target directory
+#
+# 2. VIEW REPORTS LOCALLY:
+#    allure serve target/allure-results
+#    - Requires Allure CLI installed locally
+#
+# 3. STOP:
+#    docker-compose -f docker-compose.simple.yml down
+#
+# 4. RUN WITH CUSTOM ENVIRONMENT:
+#    BASE_URL=https://api.staging.example.com docker-compose -f docker-compose.simple.yml up
+#
+# ==============================================================================

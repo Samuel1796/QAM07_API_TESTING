@@ -16,111 +16,112 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Base Test class for all API test classes.
- * <p>
- * This abstract class provides common setup and configuration for REST Assured
- * that is shared across all test classes. It initializes the base URI, default headers,
- * logging configuration, and Allure reporting integration.
- * </p>
- * <p>
- * All test classes should extend this class to inherit the common configuration
- * and avoid code duplication.
- * </p>
- * <p>
- * The {@code @TestInstance(TestInstance.Lifecycle.PER_CLASS)} annotation ensures
- * that {@code @BeforeAll} methods are executed once per test class instance rather
- * than once per test method.
- * </p>
- * <p>
- * The {@code @ExtendWith(TestResultLogger.class)} annotation enables automatic
- * logging of test results with timestamps and status information.
- * </p>
+ * This abstract class provides centralized configuration and setup for REST Assured
+ * that is shared across all API test classes. It establishes a foundation for:
+ * <ul>
+ *   <li>Base URI configuration for API endpoints</li>
+ *   <li>Default HTTP headers (Content-Type and Accept)</li>
+ *   <li>Request/response logging and validation</li>
+ *   <li>Allure reporting integration for test reports</li>
+ *   <li>Test result logging with timestamps and status</li>
+ * </ul>
  *
- * @author API Test Automation Team
- * @version 2.0
- * @since 1.0
+ * <p><b>Usage:</b> All test classes must extend this class to inherit common
+ * configuration and maintain consistency across the test suite. This prevents
+ * code duplication and ensures uniform setup/teardown operations.</p>
+ *
+ * <p><b>Lifecycle:</b> The {@code @ExtendWith(TestResultLogger.class)} annotation
+ * enables automatic logging of test execution results with detailed information
+ * about test status, duration, and any failures.</p>
+ *
+ * <p><b>Note:</b> The {@code @TestInstance(TestInstance.Lifecycle.PER_CLASS)}
+ * annotation is commented out but can be enabled if {@code @BeforeAll} methods
+ * need to execute once per test class instance rather than once per test method.</p>
  */
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS) //
 @ExtendWith(TestResultLogger.class)
 public abstract class BaseTest {
     
     /**
      * Logger instance for this class.
+     * Used throughout the test suite to log:
+     *
      */
     protected static final Logger logger = LoggerFactory.getLogger(BaseTest.class);
     
     /**
      * Request specification that contains common configuration for all API requests.
-     * <p>
-     * This includes base URI, default headers, logging filters, and Allure reporting.
-     * </p>
+     *
+     * <p>This is a statically initialized specification that is reused across all
+     * test methods within the test suite. It encapsulates:</p>
+     * <p>Since this is statically initialized, all HTTP requests
+     * made through this specification will share the same configuration, reducing
+     * setup overhead and ensuring consistency across the entire test suite.</p>
      */
-    protected RequestSpecification requestSpec;
-    
+    protected static RequestSpecification requestSpec;
+
     /**
      * Setup method executed once before all tests in the test class.
-     * <p>
-     * This method initializes REST Assured configuration including:
-     * <ul>
-     *   <li>Base URI from ConfigManager</li>
-     *   <li>Default Content-Type and Accept headers</li>
-     *   <li>Allure reporting filter for test reports</li>
-     *   <li>Request/response logging based on configuration</li>
-     * </ul>
-     * </p>
+     *
+     * <p>This initialization method configures the REST Assured framework with all
+     * necessary settings to ensure consistent behavior across all API tests. The
+     * sequence of operations is as follows:</p>
+     *
+     * <p> This centralized setup ensures that all test classes
+     * inheriting from BaseTest will use the same configuration without redundant code.</p>
      */
     @BeforeAll
-    public void setup() {
+    public static void setup() {
+        // Log the framework initialization with base URL from configuration
         logger.info("Initializing test framework with base URL: {}", ConfigManager.getBaseUrl());
         
+        // Set the global base URI for all REST Assured requests
         RestAssured.baseURI = ConfigManager.getBaseUrl();
         
+        // Create a RequestSpecBuilder to configure common request properties
         RequestSpecBuilder builder = new RequestSpecBuilder();
+
+        // Set Content-Type to JSON for all requests
         builder.setContentType("application/json");
+
+        // Set Accept header to JSON for all responses
+
         builder.addHeader("Accept", "application/json");
+
+        // Add Allure filter to capture request/response details in Allure reports
         builder.addFilter(new AllureRestAssured());
         
-        // Disable console logging for REST Assured requests/responses
-        // Logs are still captured in Allure reports
+        // Enable logging only when validation fails to reduce console output
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-        
+
+        // Build and store the request specification for use across all tests
         requestSpec = builder.build();
         
-        RestAssured.requestSpecification = requestSpec;
-        
+        // Log successful completion of the framework initialization
         logger.info("Test framework initialized successfully");
     }
-    
-    /**
-     * Retrieves the configured request specification.
-     * <p>
-     * This method provides access to the request specification for test classes
-     * that need to customize or inspect the configuration.
-     * </p>
-     *
-     * @return the configured RequestSpecification instance
-     */
-    protected RequestSpecification getRequestSpec() {
-        return requestSpec;
-    }
-    
+
+
+
     /**
      * Teardown method executed once after all tests in the test class.
-     * <p>
-     * This method performs cleanup operations including:
-     * <ul>
-     *   <li>Resetting REST Assured configuration to defaults</li>
-     *   <li>Clearing base URI and request specifications</li>
-     *   <li>Logging test suite completion</li>
-     * </ul>
-     * </p>
+     *
+     * <p>This cleanup method performs resource management operations to ensure proper
+     * test isolation and prevent state leakage between test classes. Operations include:</p>
+     *
+     * <p><b>Importance:</b> Proper cleanup prevents configuration state from persisting
+     * across test classes, which could cause unexpected behavior or test failures.</p>
      */
     @AfterAll
-    public void teardown() {
+    public static void teardown() {
+        // Log the start of the cleanup process
         logger.info("Cleaning up test framework resources");
         
-        // Reset REST Assured to default configuration
+        // Reset REST Assured configuration to default values
+        // This clears baseURI, headers, filters, and other global settings
         RestAssured.reset();
         
+        // Log successful completion of cleanup
         logger.info("Test framework cleanup completed");
     }
 }

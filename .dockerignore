@@ -1,0 +1,34 @@
+# Ignore build artifacts
+target/
+*.class
+
+# Ignore IDE files
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# Ignore Git
+.git/
+.gitignore
+.github/
+
+# Ignore documentation
+*.md
+TEST_PLAN.md
+
+# Ignore Docker files
+Dockerfile
+.dockerignore
+
+# Ignore Kiro specs
+.kiro/
+
+# Ignore logs
+*.log
+
+# Ignore OS files
+.DS_Store
+Thumbs.db

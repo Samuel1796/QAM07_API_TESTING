@@ -1,7 +1,6 @@
 package com.api.utilities;
 
 import io.restassured.specification.RequestSpecification;
-import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
@@ -89,23 +88,5 @@ public class RequestBuilder {
                 .contentType("application/json")
                 .when();
     }
-    
-    /**
-     * Builds a request specification with query parameters.
-     * <p>
-     * Creates a request with Content-Type set to application/json and includes
-     * the provided query parameters. This is useful for filtering, pagination,
-     * or passing additional data in the URL.
-     * </p>
-     *
-     * @param endpoint the API endpoint path (not used in current implementation but kept for future extensibility)
-     * @param params a map of query parameter names and values
-     * @return a configured RequestSpecification with query parameters
-     */
-    public static RequestSpecification buildRequestWithQueryParams(String endpoint, Map<String, String> params) {
-        return given()
-                .contentType("application/json")
-                .queryParams(params)
-                .when();
-    }
+
 }

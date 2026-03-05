@@ -47,22 +47,7 @@ public class ResponseValidator {
                 "Expected status code " + expectedCode + " but got " + response.getStatusCode());
     }
     
-    /**
-     * Validates that the response time is within acceptable limits.
-     * <p>
-     * This validation ensures the API responds within performance requirements.
-     * Slow responses may indicate performance issues or network problems.
-     * </p>
-     *
-     * @param response the HTTP response to validate
-     * @param maxTimeMs the maximum acceptable response time in milliseconds
-     * @throws AssertionError if the response time exceeds the maximum allowed time
-     */
-    public static void validateResponseTime(Response response, long maxTimeMs) {
-        long responseTime = response.getTimeIn(TimeUnit.MILLISECONDS);
-        Assertions.assertTrue(responseTime <= maxTimeMs,
-                "Response time " + responseTime + "ms exceeded maximum " + maxTimeMs + "ms");
-    }
+
     
     /**
      * Validates that a specific HTTP header exists and contains the expected value.
@@ -121,20 +106,6 @@ public class ResponseValidator {
                 "Expected " + key + " to be " + expectedValue + " but was " + actualValue);
     }
     
-    /**
-     * Validates that a JSON array in the response has the expected number of elements.
-     * <p>
-     * This is useful for validating list endpoints that should return a specific
-     * number of items (e.g., "GET /users should return 10 users").
-     * </p>
-     *
-     * @param response the HTTP response to validate (must contain a JSON array at root level)
-     * @param expectedSize the expected number of elements in the array
-     * @throws AssertionError if the actual array size does not match the expected size
-     */
-    public static void validateResponseBodySize(Response response, int expectedSize) {
-        int actualSize = response.jsonPath().getList("$").size();
-        Assertions.assertEquals(expectedSize, actualSize,
-                "Expected response array size " + expectedSize + " but got " + actualSize);
-    }
+
+
 }

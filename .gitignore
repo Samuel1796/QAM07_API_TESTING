@@ -38,4 +38,8 @@ build/
 ### Mac OS ###
 .DS_Store
 
+### Docker ###
+.env
+
+### Kiro ###
 .kiro
