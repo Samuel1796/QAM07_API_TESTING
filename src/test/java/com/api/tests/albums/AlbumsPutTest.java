@@ -5,7 +5,6 @@ import com.api.testdata.AlbumsTestData;
 import com.api.utilities.RequestBuilder;
 import com.api.utilities.ResponseValidator;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,9 +15,6 @@ import org.junit.jupiter.api.Test;
  * resource of the JSONPlaceholder API.
  * </p>
  *
- * @author API Test Automation Team
- * @version 2.0
- * @since 1.0
  */
 @DisplayName("Albums API PUT Tests")
 public class AlbumsPutTest extends BaseTest {
